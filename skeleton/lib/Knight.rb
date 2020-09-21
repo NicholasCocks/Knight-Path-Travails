@@ -65,16 +65,20 @@ class KnightPathFinder
     end
 
     def find_path(end_pos)
-        debugger
+        # 
         end_node = @root_node.dfs(end_pos)
-        path = [end_node] #end_nodes's parent
+         
+        path_matrix = trace_path_back(end_node)
+    end
 
+    def trace_path_back(end_node)
+        path = [end_node] #end_node's parent
 
         until path[-1] == @root_node
             path << path[-1].parent
         end
 
-        path.map! {|ele| ele = ele.value}
+        path.map! {|node| node = node.value}
         
         return path.reverse
     end
@@ -82,4 +86,7 @@ class KnightPathFinder
 end
 
 new_path = KnightPathFinder.new([0,0])
-new_path.find_path([3, 3])
+p new_path.find_path([3, 3])
+p new_path.find_path([7, 6]) # => [[0, 0], [1, 2], [2, 4], [3, 6], [5, 5], [7, 6]]
+p new_path.find_path([6, 2])  # => [[0, 0], [1, 2], [2, 0], [4, 1], [6, 2]]
+ 
